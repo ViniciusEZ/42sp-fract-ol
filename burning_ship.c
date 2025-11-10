@@ -6,7 +6,7 @@
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 07:42:34 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/08 23:03:15 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/09 01:08:44 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ double	burning_ship(double cr, double ci, int max_iter)
 	{
 		mag = zr * zr + zi * zi;
 		if (mag > 4.0)
-			return (n + 1 - log(log(mag)) / log(2.0));
+			return (n + 1 - log2(log(mag)));
 		tmp = fabs(zr);
 		mag = fabs(zi);
 		zr = tmp * tmp - mag * mag + cr;

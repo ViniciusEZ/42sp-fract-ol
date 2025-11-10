@@ -6,7 +6,7 @@
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 01:01:15 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/08 23:25:12 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/09 01:25:24 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@
 # define MAX_ITER 80
 # define NUM_PALETTES 4
 
-// Includes necessários
 # include "mlx.h"
 # include <math.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
-# include <unistd.h> // Para write
+# include <unistd.h>
 
 typedef enum e_fractal
 {
@@ -117,7 +115,9 @@ void			draw_pixel_tricorn(t_data *img, int x, int y, t_view *view);
 void			draw_tricorn(t_data *img, t_view *view);
 int				ft_strcmp(const char *s1, const char *s2);
 void			print_error(void);
+double			ft_atof(const char *str);
 void			ft_putstr_fd(char *s, int fd);
+int				ft_isspace(char c);
 t_data			init_image(void *mlx);
 void			redraw(t_vars *vars);
 void			handle_zoom(t_vars *vars, double factor, double fx, double fy);

@@ -6,7 +6,7 @@
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 07:45:39 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/08 23:12:40 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/09 00:47:03 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ double	julia(double zr, double zi, t_view *view)
 	{
 		mag = zr * zr + zi * zi;
 		if (mag > 4.0)
-			return (n + 1 - log(log(mag)) / log(2.0));
+			return (n + 1 - log2(log(mag)));
 		tmp = zr * zr - zi * zi + cr;
 		zi = 2 * zr * zi + ci;
 		zr = tmp;

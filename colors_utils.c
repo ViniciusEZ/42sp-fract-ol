@@ -6,7 +6,7 @@
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 23:24:05 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/08 23:24:14 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/09 01:25:28 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,67 +24,51 @@ t_color	extract_rgb(int color)
 
 double	clamp_t(double t)
 {
-	if (isnan(t))
-		return (0);
-	if (t < 0)
-		return (0);
-	if (t > 1)
-		return (1);
+	if (t != t || t < 0.0)
+		return (0.0);
+	if (t > 1.0)
+		return (1.0);
 	return (t);
 }
 
 int	interpolate_color(int c1, int c2, double t)
 {
-	t_color	rgb1;
-	t_color	rgb2;
-	int		r;
-	int		g;
-	int		b;
-
-	rgb1 = extract_rgb(c1);
-	rgb2 = extract_rgb(c2);
-	r = (int)(rgb1.r + (rgb2.r - rgb1.r) * t);
-	g = (int)(rgb1.g + (rgb2.g - rgb1.g) * t);
-	b = (int)(rgb1.b + (rgb2.b - rgb1.b) * t);
-	return ((r << 16) | (g << 8) | b);
-}
-
-int	get_start_color(int index, t_view *view)
-{
-	int	color;
-	int	col1;
-	int	col2;
-
-	if (view->transitioning)
-	{
-		col1 = get_palette_color(view->palette_id, index);
-		col2 = get_palette_color(view->target_palette_id, index);
-		color = interpolate_color(col1, col2, view->transition_fraction);
-	}
-	else
-	{
-		color = get_palette_color(view->palette_id, index);
-	}
-	return (color);
-}
-
-int	get_gradient_color(double t, t_view *view)
-{
-	double	segment;
-	int		index;
-	double	local_t;
-	int		start_col;
-	int		end_col;
+	t_color	r1;
+	t_color	r2;
 
 	t = clamp_t(t);
-	segment = t * 5.0;
-	index = (int)segment;
-	if (index < 0)
-		index = 0;
-	if (index >= 5)
-		index = 4;
-	local_t = segment - index;
-	start_col = get_start_color(index, view);
-	end_col = get_start_color(index + 1, view);
-	return (interpolate_color(start_col, end_col, local_t));
+	r1 = extract_rgb(c1);
+	r2 = extract_rgb(c2);
+	return (((int)(r1.r + (r2.r - r1.r) * t) << 16) | ((int)(r1.g + (r2.g
+					- r1.g) * t) << 8) | (int)(r1.b + (r2.b - r1.b) * t));
+}
+
+int	get_start_color(int index, t_view *v)
+{
+	int	c1;
+	int	c2;
+
+	if (!v->transitioning)
+		return (get_palette_color(v->palette_id, index));
+	c1 = get_palette_color(v->palette_id, index);
+	c2 = get_palette_color(v->target_palette_id, index);
+	return (interpolate_color(c1, c2, v->transition_fraction));
+}
+
+int	get_gradient_color(double t, t_view *v)
+{
+	double	seg;
+	int		i;
+	double	lt;
+
+	t = clamp_t(t);
+	seg = t * 5.0;
+	i = (int)seg;
+	if (i < 0)
+		i = 0;
+	if (i >= 5)
+		i = 4;
+	lt = seg - i;
+	return (interpolate_color(get_start_color(i, v), get_start_color(i + 1, v),
+			lt));
 }

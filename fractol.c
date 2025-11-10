@@ -1,16 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   fractol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 01:12:25 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/08 23:16:19 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/08 23:48:03 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract_ol.h"
+
+void	print_error(void)
+{
+	ft_putstr_fd("Invalid arguments\n", 2);
+	ft_putstr_fd("Usage:\n", 2);
+	ft_putstr_fd("./fractol mandelbrot\n", 2);
+	ft_putstr_fd("./fractol julia <float> <float>\n", 2);
+	ft_putstr_fd("./fractol tricorn\n", 2);
+	ft_putstr_fd("./fractol burning_ship\n", 2);
+	exit(1);
+}
+
+t_data	init_image(void *mlx)
+{
+	t_data	img;
+
+	img.img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length,
+			&img.endian);
+	return (img);
+}
 
 static void	init_fractal_type(t_vars *vars, int argc, char **argv)
 {

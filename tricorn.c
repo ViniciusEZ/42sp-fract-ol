@@ -6,7 +6,7 @@
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 07:51:42 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/08 23:09:50 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/09 00:47:42 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ double	tricorn(double cr, double ci, int max_iter)
 	{
 		magnitude = zr * zr + zi * zi;
 		if (magnitude > 4.0)
-			return (n + 1 - log(log(magnitude)) / log(2.0));
+			return (n + 1 - log2(log(magnitude)));
 		tmp = zr * zr - zi * zi + cr;
 		zi = -2.0 * zr * zi + ci;
 		zr = tmp;

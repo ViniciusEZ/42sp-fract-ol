@@ -6,11 +6,46 @@
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 23:09:59 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/08 23:10:21 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/09 01:07:02 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract_ol.h"
+
+int	ft_isspace(char c)
+{
+	if (c == 32)
+		return (1);
+	return (0);
+}
+
+double	ft_atof(const char *str)
+{
+	double	res;
+	double	sign;
+	double	frac;
+
+	res = 0.0;
+	sign = 1.0;
+	frac = 0.1;
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '-' || *str == '+')
+		if (*str++ == '-')
+			sign = -1.0;
+	while (*str && *str >= '0' && *str <= '9')
+		res = res * 10.0 + (*str++ - '0');
+	if (*str == '.')
+	{
+		str++;
+		while (*str && *str >= '0' && *str <= '9')
+		{
+			res += (*str++ - '0') * frac;
+			frac *= 0.1;
+		}
+	}
+	return (res * sign);
+}
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
@@ -25,36 +60,17 @@ int	ft_strcmp(const char *s1, const char *s2)
 void	ft_putstr_fd(char *s, int fd)
 {
 	int	i;
+	int	ret;
 
 	if (!s)
 		return ;
 	i = 0;
 	while (s[i])
 	{
-		write(fd, &s[i], 1);
+		ret = write(fd, &s[i], 1);
+		(void)ret;
 		i++;
 	}
-}
-
-void	print_error(void)
-{
-	ft_putstr_fd("Invalid arguments\n", 2);
-	ft_putstr_fd("Usage:\n", 2);
-	ft_putstr_fd("./fractol mandelbrot\n", 2);
-	ft_putstr_fd("./fractol julia <float> <float>\n", 2);
-	ft_putstr_fd("./fractol tricorn\n", 2);
-	ft_putstr_fd("./fractol burning_ship\n", 2);
-	exit(1);
-}
-
-t_data	init_image(void *mlx)
-{
-	t_data	img;
-
-	img.img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length,
-			&img.endian);
-	return (img);
 }
 
 void	redraw(t_vars *vars)
