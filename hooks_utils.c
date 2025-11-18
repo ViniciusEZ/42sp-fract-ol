@@ -6,7 +6,7 @@
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 23:07:54 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/09 00:55:56 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/18 02:29:54 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	handle_palette_switch(int keycode, t_vars *vars)
 			% NUM_PALETTES;
 	}
 	gettimeofday(&tv, NULL);
-	vars->view.transition_start = tv.tv_sec + (double)tv.tv_usec / 1000000.0;
+	vars->view.transition_start = tv.tv_sec + (double)tv.tv_usec * 0.000001;
 	vars->view.transitioning = 1;
 	vars->view.transition_fraction = 0.0;
 }

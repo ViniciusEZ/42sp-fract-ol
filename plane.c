@@ -6,7 +6,7 @@
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 07:39:35 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/14 09:04:07 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/18 02:29:44 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ t_complex	map_to_complex(double x, double y, t_complex min, t_complex max)
 {
 	t_complex	c;
 
-	c.r = min.r + x * ((max.r - min.r) / WIDTH);
-	c.i = max.i - y * ((max.i - min.i) / HEIGHT);
+	c.r = min.r + x * ((max.r - min.r) * INV_WIDTH);
+	c.i = max.i - y * ((max.i - min.i) * INV_HEIGHT);
 	return (c);
 }
 

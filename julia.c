@@ -6,7 +6,7 @@
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 07:45:39 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/18 00:04:51 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/18 02:32:56 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_pixel_julia(t_data *img, int x, int y, t_view *view)
 
 	z = map_to_complex(x, y, view->min, view->max);
 	n_iterations = julia(z.r, z.i, view);
-	t = log(1 + n_iterations) / view->log_max_iter_plus_one;
+	t = log(1 + n_iterations) * view->inv_log_max_iter_plus_one;
 	t = pow(t, view->gamma);
 	my_mlx_pixel_put(img, x, y, get_gradient_color(t, view));
 }

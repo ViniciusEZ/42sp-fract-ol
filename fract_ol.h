@@ -6,7 +6,7 @@
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 01:01:15 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/17 23:58:38 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/18 02:18:10 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # define WIDTH 800
 # define MAX_ITER 80
 # define NUM_PALETTES 4
+# define INV_WIDTH 0.00125
+# define INV_HEIGHT 0.00125
 
 # include "mlx.h"
 # include <math.h>
@@ -61,11 +63,12 @@ typedef struct s_view
 	t_complex	c;
 	int			max_iter;
 	double		gamma;
-	double		log_max_iter_plus_one;
+	double		inv_log_max_iter_plus_one;
 	int			palette_id;
 	int			target_palette_id;
 	double		transition_start;
 	double		transition_duration;
+	double		inv_transition_duration;
 	double		transition_fraction;
 	int			transitioning;
 }				t_view;

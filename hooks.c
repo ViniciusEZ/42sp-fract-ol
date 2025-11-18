@@ -6,7 +6,7 @@
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 23:07:38 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/08 23:55:29 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/18 02:29:51 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	mouse_hook(int button, int x, int y, t_vars *vars)
 		factor = 0.8;
 	else
 		factor = 1.25;
-	fx = (double)x / WIDTH;
-	fy = (double)y / HEIGHT;
+	fx = (double)x * INV_WIDTH;
+	fy = (double)y * INV_HEIGHT;
 	handle_zoom(vars, factor, fx, fy);
 	redraw(vars);
 	return (0);
@@ -67,10 +67,10 @@ int	loop_hook(t_vars *vars)
 	if (vars->view.transitioning)
 	{
 		gettimeofday(&tv, NULL);
-		now = tv.tv_sec + (double)tv.tv_usec / 1000000.0;
+		now = tv.tv_sec + (double)tv.tv_usec * 0.000001;
 		elapsed = now - vars->view.transition_start;
 		vars->view.transition_fraction = elapsed
-			/ vars->view.transition_duration;
+			* vars->view.inv_transition_duration;
 		if (vars->view.transition_fraction >= 1.0)
 		{
 			vars->view.palette_id = vars->view.target_palette_id;

@@ -6,7 +6,7 @@
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 23:10:31 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/17 23:59:55 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/18 02:29:32 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ void	update_max_iter(t_vars *vars)
 	int		new_max_iter;
 
 	current_width = vars->view.max.r - vars->view.min.r;
-	zoom_factor = vars->initial_width / current_width;
+	zoom_factor = vars->initial_width * (1.0 / current_width);
 	new_max_iter = (int)(vars->base_max_iter + 50 * log2(zoom_factor + 1e-10));
 	if (new_max_iter < 20)
 		new_max_iter = 20;
 	if (new_max_iter > 500)
 		new_max_iter = 500;
 	vars->view.max_iter = new_max_iter;
-	vars->view.log_max_iter_plus_one = log(1 + vars->view.max_iter);
+	vars->view.inv_log_max_iter_plus_one = 1.0 / log(1 + vars->view.max_iter);
 }
