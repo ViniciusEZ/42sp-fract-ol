@@ -6,7 +6,7 @@
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 07:39:35 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/09 01:04:58 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/14 09:04:07 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,5 @@ t_complex	map_to_complex(double x, double y, t_complex min, t_complex max)
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
-	*(unsigned int *)dst = color;
+	*(unsigned int *)(data->addr + y * data->line_length + x * 4) = color;
 }

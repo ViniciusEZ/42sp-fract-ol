@@ -6,7 +6,7 @@
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 23:09:26 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/08 23:49:16 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/17 23:59:32 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	set_view_mandelbrot(t_vars *vars)
 	vars->view.max.i = 1.5;
 	vars->view.max_iter = 80;
 	vars->view.gamma = 0.7;
+	vars->view.log_max_iter_plus_one = log(1 + vars->view.max_iter);
 	vars->view.palette_id = 0;
 	vars->view.target_palette_id = 0;
 	vars->view.transition_start = 0.0;
@@ -39,6 +40,7 @@ void	set_view_tricorn(t_vars *vars)
 	vars->view.max.i = 1.5;
 	vars->view.max_iter = 80;
 	vars->view.gamma = 0.7;
+	vars->view.log_max_iter_plus_one = log(1 + vars->view.max_iter);
 	vars->view.palette_id = 0;
 	vars->view.target_palette_id = 0;
 	vars->view.transition_start = 0.0;
@@ -58,6 +60,7 @@ void	set_view_burning_ship(t_vars *vars)
 	vars->view.max.i = -0.2;
 	vars->view.max_iter = 80;
 	vars->view.gamma = 0.5;
+	vars->view.log_max_iter_plus_one = log(1 + vars->view.max_iter);
 	vars->view.palette_id = 0;
 	vars->view.target_palette_id = 0;
 	vars->view.transition_start = 0.0;
@@ -77,6 +80,7 @@ void	set_view_julia(t_vars *vars, char **argv)
 	vars->view.max.i = 1.5;
 	vars->view.max_iter = 300;
 	vars->view.gamma = 0.55;
+	vars->view.log_max_iter_plus_one = log(1 + vars->view.max_iter);
 	vars->view.palette_id = 0;
 	vars->view.target_palette_id = 0;
 	vars->view.transition_start = 0.0;

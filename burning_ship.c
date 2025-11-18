@@ -6,7 +6,7 @@
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 07:42:34 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/09 01:08:44 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/18 00:05:10 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ double	burning_ship(double cr, double ci, int max_iter)
 {
 	double	zr;
 	double	zi;
-	double	tmp;
-	double	mag;
+	double	zr2;
+	double	zi2;
 	int		n;
 
 	zr = 0.0;
@@ -25,13 +25,16 @@ double	burning_ship(double cr, double ci, int max_iter)
 	n = 0;
 	while (n < max_iter)
 	{
-		mag = zr * zr + zi * zi;
-		if (mag > 4.0)
-			return (n + 1 - log2(log(mag)));
-		tmp = fabs(zr);
-		mag = fabs(zi);
-		zr = tmp * tmp - mag * mag + cr;
-		zi = 2 * tmp * mag + ci;
+		zr2 = zr * zr;
+		zi2 = zi * zi;
+		if (zr2 + zi2 > 4.0)
+			return (n + 1 - log2(log(zr2 + zi2)));
+		if (zr < 0)
+			zr = -zr;
+		if (zi < 0)
+			zi = -zi;
+		zi = 2 * zr * zi + ci;
+		zr = zr2 - zi2 + cr;
 		n++;
 	}
 	return (n);
@@ -45,7 +48,7 @@ void	draw_pixel_burning_ship(t_data *img, int x, int y, t_view *view)
 
 	c = map_to_complex(x, y, view->min, view->max);
 	n = burning_ship(c.r, c.i, view->max_iter);
-	t = log(1 + n) / log(1 + view->max_iter);
+	t = log(1 + n) / view->log_max_iter_plus_one;
 	t = pow(t, view->gamma);
 	my_mlx_pixel_put(img, x, y, get_gradient_color(t, view));
 }
