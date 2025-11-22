@@ -6,7 +6,7 @@
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 23:07:38 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/18 02:29:51 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/21 23:37:45 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	close_window(t_vars *vars)
 	mlx_destroy_image(vars->mlx, vars->img.img);
 	mlx_destroy_window(vars->mlx, vars->win);
 	mlx_destroy_display(vars->mlx);
+	free(vars->mlx);
 	exit(0);
 }
 
