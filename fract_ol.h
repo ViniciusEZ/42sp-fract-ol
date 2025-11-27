@@ -6,7 +6,7 @@
 /*   By: vfirmino <vfirmino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 01:01:15 by vfirmino          #+#    #+#             */
-/*   Updated: 2025/11/18 02:18:10 by vfirmino         ###   ########.fr       */
+/*   Updated: 2025/11/26 13:38:01 by vfirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,7 @@ t_data			init_image(void *mlx);
 void			redraw(t_vars *vars);
 void			handle_zoom(t_vars *vars, double factor, double fx, double fy);
 void			update_max_iter(t_vars *vars);
+int				is_valid_float(const char *s);
+int				is_valid_julia_value(double x);
 
 #endif
